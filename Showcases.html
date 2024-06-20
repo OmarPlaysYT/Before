@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewort" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="OmarPlays,OmarPlays Mod, OmarPlays Menu, OmarPlays Mod Menu, GTA Cheat">
+        <meta name="description" content="Unlock powerful features and dominate with our cutting-edge cheat software, OmarPlays. Easy to install, regularly updated, and designed for elite gamers. Transform your play today!">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" type="image/x-icon" href="/images/OP_logo.png">
+        <title>OmarPlays</title>
+        <style>
+            .video-container {
+                transform: translateX(425px);
+                width: 512px;
+                height: 288px;
+            }
+            .video-frame {
+                width: 100%;
+                height: 100%;
+                border-radius: 25px;
+            }
+            .nav-button {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background-color: rgba(0, 0, 0, 0.5);
+                color: white;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+            }
+            .nav-button.left {
+                left: -250px;
+            }
+            .nav-button.right {
+                right: -250px;
+            }
+            .counter {
+                position: inherit;
+                width: 0%;
+                text-align: center;
+                transform: translateX(672px);
+                margin-top: 10px;
+            }
+            
+        .CounterTXT{
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="Banner">
+            <div class="navbar">
+                <img class="Logo" src="images/OP_Text.png" alt="OP Logo">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Logs.html">Update Logs</a></li>
+                    <li><a href="Showcases.html">Showcases</a></li>
+                    <li><a href="https://discord.gg/omarcheats" target="_blank">Discord</a></li>
+                </ul>
+            </div>
+            <div class="contentShowcases">
+                <h1>Video Showcases:</h1>
+                <p>Contact us for a partnership.</p>
+                <div class="video-container">
+                    <iframe id="youtube-video" class="video-frame" src="https://www.youtube.com/embed/YOUR_FIRST_VIDEO_ID?enablejsapi=1" style="box-shadow : 0px 0px 20px #ffacf180;" frameborder="0" allowfullscreen></iframe>
+                    <button class="nav-button left" onclick="previousVideo()" style="box-shadow : 0px 0px 20px #ffacf138;"><span ></span>🢀</button>
+                    <button class="nav-button right" onclick="nextVideo()" style="box-shadow : 0px 0px 20px #ffacf13d;"><span ></span>🢂</button>
+                </div>
+                <div class="counter">
+                    <span class="CounterTXT" id="video-counter">1/3</span>
+                </div>
+            
+                <script>
+                    // List of YouTube video IDs
+                    const videoIds = ['PWirijQkH4M', 'GuuhNNcNQ', 'AF6vGYIyV8M'];
+                    let currentIndex = 0;
+            
+                    // Load the YouTube IFrame Player API
+                    var tag = document.createElement('script');
+                    tag.src = "https://www.youtube.com/iframe_api";
+                    var firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+            
+                    var player;
+                    function onYouTubeIframeAPIReady() {
+                        player = new YT.Player('youtube-video', {
+                            events: {
+                                'onReady': onPlayerReady
+                            }
+                        });
+                    }
+            
+                    function onPlayerReady(event) {
+                        // Video player is ready
+                        updateCounter();
+                    }
+            
+                    function loadVideo(index) {
+                        if (player && player.loadVideoById) {
+                            player.loadVideoById(videoIds[index]);
+                        } else {
+                            document.getElementById('youtube-video').src = `https://www.youtube.com/embed/${videoIds[index]}?enablejsapi=1`;
+                        }
+                        updateCounter();
+                    }
+            
+                    function previousVideo() {
+                        if (currentIndex > 0) {
+                            currentIndex--;
+                            loadVideo(currentIndex);
+                        }
+                    }
+            
+                    function nextVideo() {
+                        if (currentIndex < videoIds.length - 1) {
+                            currentIndex++;
+                            loadVideo(currentIndex);
+                        }
+                    }
+            
+                    function updateCounter() {
+                        document.getElementById('video-counter').textContent = `${currentIndex + 1}/${videoIds.length}`;
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 OmarPlays. All Rights Reserved.</p>
+        </div>
+    </body>
+</html>

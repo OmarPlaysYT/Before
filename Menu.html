@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Header Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #202020;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.menu-container {
+    background-color: #303030;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    transition: height 0.3s ease;
+}
+
+.menu-header {
+    background-color: #202020;
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid #404040;
+}
+
+.menu-header img {
+    width: 100%;
+    height: auto;
+}
+
+.menu-content {
+    padding: 16px;
+    overflow-y: auto;
+    display: none;
+    box-sizing: border-box;
+}
+
+.menu-content.active {
+    display: block;
+}
+
+.menu-item, .submenu-item {
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    margin: 4px 0;
+}
+
+.menu-item:hover, .submenu-item:hover {
+    background-color: #505050;
+}
+
+.submenu {
+    display: none;
+}
+
+.submenu .menu-item.back {
+    padding-left: 0;
+}
+
+span {
+    float: right;
+}
+
+.menu-footer {
+    background-color: #202020;
+    padding: 8px 16px;
+    text-align: center;
+    border-top: 1px solid #404040;
+    position: relative;
+    box-sizing: border-box;
+}
+
+    </style>
+</head>
+<body>
+    <div class="menu-container" id="menuContainer">
+        <div class="menu-header">
+            <img src="path-to-your-logo.png" alt="X-Force Logo">
+        </div>
+        <div class="menu-content" id="mainMenu">
+            <div class="menu-item" onclick="openSubmenu('selfMenu')">Self <span>&gt;</span></div>
+            <div class="menu-item" onclick="openSubmenu('networkMenu')">Network <span>&gt;</span></div>
+            <div class="menu-item" onclick="openSubmenu('weaponMenu')">Weapon <span>&gt;</span></div>
+            <!-- Add more main menu items here -->
+        </div>
+        <div class="menu-content submenu" id="selfMenu">
+            <div class="menu-item back" onclick="goBack()">Back</div>
+            <div class="submenu-item">Dive Falling</div>
+            <div class="submenu-item">Beast Landing</div>
+            <div class="submenu-item">Better Falling</div>
+            <!-- Add more submenu items here -->
+        </div>
+        <div class="menu-content submenu" id="networkMenu">
+            <div class="menu-item back" onclick="goBack()">Back</div>
+            <!-- Add submenu items here -->
+        </div>
+        <div class="menu-content submenu" id="weaponMenu">
+            <div class="menu-item back" onclick="goBack()">Back</div>
+            <!-- Add submenu items here -->
+        </div>
+        <div class="menu-footer">
+            <span>8.0b1</span>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById('mainMenu').classList.add('active');
+    adjustMenuHeight('mainMenu');
+});
+
+let currentMenu = 'mainMenu';
+let menuHistory = [];
+
+function openSubmenu(menuId) {
+    document.getElementById(currentMenu).classList.remove('active');
+    document.getElementById(menuId).classList.add('active');
+    menuHistory.push(currentMenu);
+    currentMenu = menuId;
+
+    // Adjust height dynamically based on content
+    adjustMenuHeight(menuId);
+}
+
+function goBack() {
+    if (menuHistory.length > 0) {
+        document.getElementById(currentMenu).classList.remove('active');
+        currentMenu = menuHistory.pop();
+        document.getElementById(currentMenu).classList.add('active');
+
+        // Adjust height dynamically based on content
+        adjustMenuHeight(currentMenu);
+    }
+}
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Backspace') {
+        goBack();
+    }
+});
+
+function adjustMenuHeight(menuId) {
+    const menuContainer = document.getElementById('menuContainer');
+    const menuContent = document.getElementById(menuId);
+    const menuFooter = document.querySelector('.menu-footer');
+    
+    menuContent.style.height = 'auto'; // Reset height to auto
+    const contentHeight = menuContent.scrollHeight; // Get the full height of the content
+    const footerHeight = menuFooter.offsetHeight; // Get the height of the footer
+    
+    // Adjust the height of the menu container
+    menuContainer.style.height = `${contentHeight + footerHeight}px`;
+}
+
+    </script>
+</body>
+</html>
